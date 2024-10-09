@@ -1,0 +1,49 @@
+<form [formGroup]="listaCompras" (ngSubmit)="adcItem()" class="form-container">
+  <label for="item">Adicione seus itens de compra abaixo: </label>
+  <input id="item" type="text" formControlName="item" />
+  <button type="submit" [disabled]="listaCompras.invalid">
+    {{ indiceEdicao !== null ? 'Confirmar' : 'Adicionar' }}
+  </button>
+</form>
+
+<h3 class="title">Itens por comprar: </h3>
+<div class="item-container">
+  <ng-container *ngFor="let item of lista; let i = index">
+    <div class="item-group" *ngIf="!item.comprado">
+      <div class="item">
+        <span [ngStyle]="{ textDecoration: 'none', color: 'black' }">
+          {{ item.nome }}
+        </span>
+      </div>
+      <div class="button-group">
+        <button (click)="marcarComprado(i)">Marcar como comprado</button>
+        <button (click)="prepararEdicao(i)">Editar</button>
+        <button (click)="removerItem(i)" style="border: none; background: transparent; cursor: pointer;">
+          <img src="https://cdn.icon-icons.com/icons2/2213/PNG/512/garbage_delete_remove_recycle_bin_icon_134186.png" alt="Remover" style="width: 24px; height: 24px;" />
+        </button>
+      </div>
+      
+    </div>
+  </ng-container>
+</div>
+
+<h3 class="title">Itens já comprados: </h3>
+<div class="item-container">
+  <ng-container *ngFor="let item of lista; let i = index">
+    <div class="item-group" *ngIf="item.comprado">
+      <div class="item">
+        <span [ngStyle]="{ textDecoration: 'line-through', color: 'red' }">
+          {{ item.nome }}
+        </span>
+      </div>
+      <div class="button-group">
+        <button (click)="marcarComprado(i)">Desmarcar</button>
+        <button (click)="prepararEdicao(i)">Editar</button>
+        <button (click)="removerItem(i)" style="border: none; background: transparent; cursor: pointer;">
+          <img src="https://cdn.icon-icons.com/icons2/2213/PNG/512/garbage_delete_remove_recycle_bin_icon_134186.png" alt="Remover" style="width: 24px; height: 24px;" />
+        </button>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
